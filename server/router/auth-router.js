@@ -1,15 +1,10 @@
-import express from 'express';
-import { Router } from 'express';
+import { Router } from "express";
+import { homePage, registerPage } from "../controllers/auth-controller.js";
 
+const router = Router();
 
-const router =Router();
+router.route("/").get(homePage);
 
-router.get("/",(req,resp)=>{
-    resp.send("Hi")
-})
-
-router.get("/register",(req,resp)=>{
-    resp.status(200).send("Hi register")
-})
+router.route("/register").get(registerPage);
 
 export const authRoutes = router;
