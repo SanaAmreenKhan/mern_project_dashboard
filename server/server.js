@@ -3,8 +3,9 @@ import { authRoutes } from "./router/auth-router.js";
 import { connectDb } from "./utils/db.js";
 
 connectDb().then(() => {
-  const port = 5000;
-  app.listen(port, () => `Server running on port ${port} 🔥`);
+  app.listen(process.env.port, () =>
+    console.log(`Server running on port ${process.env.port} 🔥`)
+  );
 });
 
 const app = express();
