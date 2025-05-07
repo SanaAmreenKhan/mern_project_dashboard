@@ -5,6 +5,6 @@ const router = Router();
 
 router.route("/").get(homePage);
 
-router.route("/register").get(registerPage);
+router.route("/register").post(registerPage);
 
 export const authRoutes = router;
