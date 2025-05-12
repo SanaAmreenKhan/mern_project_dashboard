@@ -1,26 +1,50 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-    const [userData, setUserData] = useState({
-      email: "",
-      password: "",
+  const navigate = useNavigate();
+
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleInput = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+
+    setUserData({
+      ...userData,
+      [name]: value,
     });
-  
-    const handleInput = (e) => {
-      let name = e.target.name;
-      let value = e.target.value;
-  
-      setUserData({
-        ...userData,
-        [name]: value,
+  };
+
+  const handleSubmitData = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
       });
-    };
-    
-    
-    const handleSubmitData=(e)=>{
-  e.preventDefault()
-  alert(userData)
+      console.log(response);
+      if (response.ok) {
+        setUserData({
+          email: "",
+          password: "",
+        });
+        alert("Login Successful");
+        navigate("/");
+      } else {
+        alert("Invalid credential");
+      }
+    } catch (error) {
+      console.log(error);
     }
+  };
+
   return (
     <>
       <section>
