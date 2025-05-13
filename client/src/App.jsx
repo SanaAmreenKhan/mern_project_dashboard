@@ -8,11 +8,12 @@ import Login from "./page/Login";
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 import { Error } from "./page/Error";
+import Logout from "./page/Logout";
 
 function App() {
   return (
     <BrowserRouter>
-    <Navbar/>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -20,9 +21,10 @@ function App() {
         <Route path="/services" element={<Service />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="*" element={<Error/>} />
+        <Route path="*" element={<Error />} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </BrowserRouter>
   );
 }

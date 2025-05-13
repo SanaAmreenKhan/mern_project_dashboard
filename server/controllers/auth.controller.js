@@ -1,5 +1,4 @@
 import { User } from "../models/user.model.js";
-import bcrypt from "bcrypt";
 
 export const homePage = async (req, res) => {
   try {
@@ -53,5 +52,14 @@ export const login = async (req, res) => {
   } catch (error) {
     res.status(500).json("Internal Server Error");
     console.error(error);
+  }
+};
+
+export const userProfile = async (req, resp) => {
+  try {
+    const userData = req.user;
+    return resp.status(200).json({ userData });
+  } catch (error) {
+    console.log(error);
   }
 };

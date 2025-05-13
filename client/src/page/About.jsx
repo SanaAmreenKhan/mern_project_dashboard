@@ -1,6 +1,8 @@
 import React from "react";
+import { useAuth } from "../store/auth";
 
 const About = () => {
+  const { user } = useAuth();
   return (
     <>
       <main>
@@ -8,12 +10,21 @@ const About = () => {
         <section className="section-hero">
           <div className="container grid grid-two-cols">
             <div className="hero-content">
+              <p>
+                Welcome{" "}
+                {user.username
+                  ? `${user.username} to our website`
+                  : `to our website`}{" "}
+                ,
+              </p>
               <p>About Sana's Bakery</p>
               <h1>Freshly Baked with Love</h1>
               <p>
-                Sana’s Bakery started with a simple passion for baking and a mission to bring smiles with every bite.
-                What began in a cozy kitchen has grown into a beloved neighborhood bakery known for its artisanal cakes,
-                pastries, cookies, and more — made fresh every single day.
+                Sana’s Bakery started with a simple passion for baking and a
+                mission to bring smiles with every bite. What began in a cozy
+                kitchen has grown into a beloved neighborhood bakery known for
+                its artisanal cakes, pastries, cookies, and more — made fresh
+                every single day.
               </p>
             </div>
 
@@ -45,8 +56,9 @@ const About = () => {
               <h1>Quality, Creativity & Community</h1>
               <p>
                 We bake everything using high-quality ingredients, no shortcuts.
-                Our team constantly experiments with new flavors and designs to make your celebrations unforgettable.
-                Most importantly, we cherish being a part of your happiest moments.
+                Our team constantly experiments with new flavors and designs to
+                make your celebrations unforgettable. Most importantly, we
+                cherish being a part of your happiest moments.
               </p>
             </div>
           </div>
@@ -59,8 +71,10 @@ const About = () => {
               <p>Meet Our Team</p>
               <h1>The Heart Behind the Oven</h1>
               <p>
-                From skilled pastry chefs to friendly customer service staff, our team works together like a well-blended batter.
-                Each member brings their unique flair, making your experience with us extra special.
+                From skilled pastry chefs to friendly customer service staff,
+                our team works together like a well-blended batter. Each member
+                brings their unique flair, making your experience with us extra
+                special.
               </p>
             </div>
 

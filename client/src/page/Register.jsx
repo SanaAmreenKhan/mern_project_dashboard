@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
 
 const Register = () => {
   const navigate = useNavigate();
+  const { storeTokenInLocalStorage } = useAuth();
 
   const [userData, setUserData] = useState({
     username: "",
@@ -33,6 +35,9 @@ const Register = () => {
       });
       console.log(response);
       if (response.ok) {
+        const res_data = await response.json();
+        storeTokenInLocalStorage(res_data.token);
+
         setUserData({
           username: "",
           email: "",

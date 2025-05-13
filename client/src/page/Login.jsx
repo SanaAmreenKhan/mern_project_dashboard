@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { storeTokenInLocalStorage } = useAuth();
 
   const [userData, setUserData] = useState({
     email: "",
@@ -31,6 +33,8 @@ const Login = () => {
       });
       console.log(response);
       if (response.ok) {
+        const res_data = await response.json();
+        storeTokenInLocalStorage(res_data.token);
         setUserData({
           email: "",
           password: "",

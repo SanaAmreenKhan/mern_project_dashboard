@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../store/auth";
 
 const Contact = () => {
+  const { user } = useAuth();
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     message: "",
   });
+
+  useEffect(() => {
+    if (user && user.username && user.email) {
+      setFormData((prev) => ({
+        ...prev,
+        username: user.username,
+        email: user.email,
+      }));
+    }
+  }, [user]); // This runs only when `user` changes
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -93,7 +106,7 @@ const Contact = () => {
           ></iframe>
         </section>
       </section>
-      </>
+    </>
   );
 };
 
