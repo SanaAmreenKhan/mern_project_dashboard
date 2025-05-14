@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState({});
+  const [menu, setMenu] = useState([]);
 
   const storeTokenInLocalStorage = (serverToken) => {
     return localStorage.setItem("token", serverToken);
@@ -33,13 +34,29 @@ export const AuthProvider = ({ children }) => {
   };
   let isLoggedIn = !!token;
 
+  const getAllMenu = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/data/services", {
+        method: "GET",
+      });
+      if (response.ok) {
+        setMenu(await response.json());
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     authenticateJwt();
+    getAllMenu();
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ storeTokenInLocalStorage, LogoutUser, isLoggedIn, user }}
+      value={{ storeTokenInLocalStorage, LogoutUser, isLoggedIn, user, menu }}
     >
       {children}
     </AuthContext.Provider>
