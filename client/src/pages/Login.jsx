@@ -1,48 +1,56 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
+import { toast } from "react-toastify";
 
-const Login = () => {
-  const navigate = useNavigate();
-  const { storeTokenInLocalStorage } = useAuth();
-
-  const [userData, setUserData] = useState({
+export const Login = () => {
+  const [user, setUser] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
+  const { storeTokenInLocalStorage } = useAuth();
+
+  const URL = `http://localhost:3000/api/auth/login`;
 
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
 
-    setUserData({
-      ...userData,
+    setUser({
+      ...user,
       [name]: value,
     });
   };
 
-  const handleSubmitData = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/api/auth/login", {
+      const response = await fetch(URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(user),
       });
+
+      console.log("login form", response);
+
       const res_data = await response.json();
-      console.log(res_data);
+
       if (response.ok) {
+        // alert("Login Successful");
         storeTokenInLocalStorage(res_data.token);
-        setUserData({
-          email: "",
-          password: "",
-        });
-        alert("Login Successful");
+
+        setUser({ email: "", password: "" });
+        toast.success("Login successful");
         navigate("/");
       } else {
-        alert(res_data.extraDetails ?? res_data?.message);
+        toast.error(
+          res_data.extraDetails ? res_data.extraDetails : res_data.message
+        );
+        console.log("invalid credential");
       }
     } catch (error) {
       console.log(error);
@@ -54,19 +62,22 @@ const Login = () => {
       <section>
         <main>
           <div className="section-registration">
-            <div className="containers grid grid-two-cols">
+            <div className="container grid grid-two-cols">
               <div className="registration-image">
                 <img
                   src="/images/login.png"
-                  alt="Login image"
+                  alt=" let's fill the login form "
                   width="500"
                   height="500"
                 />
               </div>
+
+              {/* let tackle registration form  */}
               <div className="registration-form">
                 <h1 className="main-heading mb-3">login form</h1>
                 <br />
-                <form onSubmit={handleSubmitData}>
+
+                <form onSubmit={handleSubmit}>
                   <div>
                     <label htmlFor="email">email</label>
                     <input
@@ -75,27 +86,29 @@ const Login = () => {
                       placeholder="enter your email"
                       id="email"
                       required
-                      value={userData.email}
-                      onChange={handleInput}
                       autoComplete="off"
+                      value={user.email}
+                      onChange={handleInput}
                     />
                   </div>
+
                   <div>
                     <label htmlFor="password">password</label>
                     <input
-                      type="text"
+                      type="password"
                       name="password"
-                      placeholder="enter your password"
+                      placeholder="password"
                       id="password"
                       required
-                      value={userData.password}
-                      onChange={handleInput}
                       autoComplete="off"
+                      value={user.password}
+                      onChange={handleInput}
                     />
                   </div>
+
                   <br />
                   <button type="submit" className="btn btn-submit">
-                    Login Now
+                    Register Now
                   </button>
                 </form>
               </div>
@@ -106,5 +119,3 @@ const Login = () => {
     </>
   );
 };
-
-export default Login;

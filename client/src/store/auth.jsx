@@ -5,7 +5,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState({});
-  const [menu, setMenu] = useState([]);
+  const [services, setServices] = useState([]);
 
   const storeTokenInLocalStorage = (serverToken) => {
     return localStorage.setItem("token", serverToken);
@@ -34,13 +34,13 @@ export const AuthProvider = ({ children }) => {
   };
   let isLoggedIn = !!token;
 
-  const getAllMenu = async () => {
+  const getAllServices = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/data/services", {
         method: "GET",
       });
       if (response.ok) {
-        setMenu(await response.json());
+        setServices(await response.json());
       } else {
         console.log("error");
       }
@@ -51,12 +51,12 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     authenticateJwt();
-    getAllMenu();
+    getAllServices();
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ storeTokenInLocalStorage, LogoutUser, isLoggedIn, user, menu }}
+      value={{ storeTokenInLocalStorage, LogoutUser, isLoggedIn, user, services }}
     >
       {children}
     </AuthContext.Provider>

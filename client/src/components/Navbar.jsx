@@ -1,30 +1,30 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
-import { useAuth } from "../../store/auth";
+import { useAuth } from "../store/auth";
 
-const Navbar = () => {
+export const Navbar = () => {
   const { isLoggedIn } = useAuth();
   return (
     <>
       <header>
         <div className="container">
           <div className="logo-brand">
-            <NavLink to="/">Sana's Bakery</NavLink>
+            <NavLink to="/">Codify</NavLink>
           </div>
+
           <nav>
             <ul>
               <li>
-                <NavLink to="/">Home</NavLink>
+                <NavLink to="/"> Home </NavLink>
               </li>
               <li>
-                <NavLink to="/about">About</NavLink>
+                <NavLink to="/about"> About </NavLink>
               </li>
               <li>
-                <NavLink to="/contact">Contact</NavLink>
+                <NavLink to="/service"> Services </NavLink>
               </li>
               <li>
-                <NavLink to="/services">Services</NavLink>
+                <NavLink to="/contact"> Contact </NavLink>
               </li>
               {isLoggedIn ? (
                 <li>
@@ -33,10 +33,10 @@ const Navbar = () => {
               ) : (
                 <>
                   <li>
-                    <NavLink to="/login">Login</NavLink>
+                    <NavLink to="/register"> Register </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/register">SignUp</NavLink>
+                    <NavLink to="/login"> Login </NavLink>
                   </li>
                 </>
               )}
@@ -47,5 +47,3 @@ const Navbar = () => {
     </>
   );
 };
-
-export default Navbar;

@@ -1,32 +1,48 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./page/Home";
-import About from "./page/About";
-import Contact from "./page/Contact";
-import Service from "./page/Service";
-import Register from "./page/Register";
-import Login from "./page/Login";
-import Navbar from "./components/navbar/Navbar";
-import Footer from "./components/footer/Footer";
-import { Error } from "./page/Error";
-import Logout from "./page/Logout";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Navbar } from "./components/Navbar";
+import { Home } from "./pages/Home";
+import { About } from "./pages/About";
+import { Contact } from "./pages/Contact";
+import { Service } from "./pages/Service";
+import { Register } from "./pages/Register";
+import { Login } from "./pages/Login";
+import { Logout } from "./pages/Logout";
+import { Error } from "./pages/Error";
+import { Footer } from "./components/Footer/Footer";
+import { ToastContainer } from "react-toastify";
 
-function App() {
+const App = () => {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/services" element={<Service />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="*" element={<Error />} />
-        <Route path="/logout" element={<Logout />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/service" element={<Service />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="*" element={<Error />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        bodyClassName="toastBody"
+      />
+    </>
   );
-}
+};
 
 export default App;

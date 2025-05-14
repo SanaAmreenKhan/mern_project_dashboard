@@ -1,48 +1,61 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../store/auth";
+import { useEffect } from "react";
 
-const Contact = () => {
+const defaultContactFormData = {
+  username: "",
+  email: "",
+  message: "",
+};
+
+export const Contact = () => {
+  const [contact, setContact] = useState(defaultContactFormData);
+
+  // const [userData, setUserData] = useState(true);
+
   const { user } = useAuth();
-
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    message: "",
-  });
-
   useEffect(() => {
-    if (user && user.username && user.email) {
-      setFormData((prev) => ({
-        ...prev,
+    if (user) {
+      setContact({
         username: user.username,
         email: user.email,
-      }));
+        message: "",
+      });
     }
-  }, [user]); // This runs only when `user` changes
+  }, [user]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  // lets tackle our handleInput
+  const handleInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setContact({
+      ...contact,
+      [name]: value,
+    });
   };
 
+  // handle fomr getFormSubmissionInfo
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Post to your API here
+
     try {
-      const response = await fetch("http://localhost:3000/api/form/contact", {
+      const response = await fetch(`http://localhost:3000/api/form/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(contact),
       });
-      console.log(response);
+
       if (response.ok) {
-        setFormData({ username: "", email: "", message: "" });
-      } else {
-        console.log("error");
+        setContact(defaultContactFormData);
+        const data = await response.json();
+        console.log(data);
+        alert("Message send successfully");
       }
     } catch (error) {
+      alert("Message not send");
       console.log(error);
     }
   };
@@ -54,7 +67,7 @@ const Contact = () => {
           <h1 className="main-heading">contact us</h1>
         </div>
         {/* contact page main  */}
-        <div className="containers grid grid-two-cols">
+        <div className="container grid grid-two-cols">
           <div className="contact-img">
             <img src="/images/support.png" alt="we are always ready to help" />
           </div>
@@ -63,39 +76,39 @@ const Contact = () => {
           <section className="section-form">
             <form onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="username">Name</label>
+                <label htmlFor="username">username</label>
                 <input
                   type="text"
                   name="username"
                   id="username"
                   autoComplete="off"
-                  value={formData.username}
-                  onChange={handleChange}
+                  value={contact.username}
+                  onChange={handleInput}
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">email</label>
                 <input
                   type="email"
                   name="email"
                   id="email"
                   autoComplete="off"
-                  value={formData.email}
-                  onChange={handleChange}
+                  value={contact.email}
+                  onChange={handleInput}
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="message">Message</label>
+                <label htmlFor="message">message</label>
                 <textarea
                   name="message"
                   id="message"
                   autoComplete="off"
-                  value={formData.message}
-                  onChange={handleChange}
+                  value={contact.message}
+                  onChange={handleInput}
                   required
                   cols="30"
                   rows="6"
@@ -123,5 +136,3 @@ const Contact = () => {
     </>
   );
 };
-
-export default Contact;
