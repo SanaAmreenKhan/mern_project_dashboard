@@ -31,9 +31,9 @@ const Login = () => {
         },
         body: JSON.stringify(userData),
       });
-      console.log(response);
+      const res_data = await response.json();
+      console.log(res_data);
       if (response.ok) {
-        const res_data = await response.json();
         storeTokenInLocalStorage(res_data.token);
         setUserData({
           email: "",
@@ -42,7 +42,7 @@ const Login = () => {
         alert("Login Successful");
         navigate("/");
       } else {
-        alert("Invalid credential");
+        alert(res_data.extraDetails ?? res_data?.message);
       }
     } catch (error) {
       console.log(error);

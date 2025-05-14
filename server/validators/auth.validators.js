@@ -24,14 +24,15 @@ const passwordSchema = z
   .max(200, { message: "Password must be no more than 200 characters." });
 
 //create object schema
-export const signupUserSchema = z.object({
-  username: nameSchema,
-  email: emailSchema,
-  phone: phoneSchema,
-  password: passwordSchema,
-});
 
 export const loginSchema = z.object({
   email: emailSchema,
+  password: passwordSchema,
+});
+
+export const signupUserSchema = loginSchema.extend({
+  username: nameSchema,
+  email: emailSchema,
+  phone: phoneSchema,
   password: passwordSchema,
 });

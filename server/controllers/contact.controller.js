@@ -8,7 +8,7 @@ export const contactForm = async (req, res) => {
       msg: "Message send successfully",
     });
   } catch (error) {
-    res.status(500).json({ msg: "Message not delivered." });
+    res.status(500).json({ message: "Message not delivered." });
     console.error(error);
   }
 };

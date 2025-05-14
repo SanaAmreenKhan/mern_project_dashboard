@@ -15,7 +15,7 @@ export const registerPage = async (req, resp) => {
 
     const isEmailExist = await User.findOne({ email: email });
     if (isEmailExist) {
-      return resp.status(400).json({ msg: "Email already exist" });
+      return resp.status(400).json({ message: "Email already exist" });
     }
 
     const userCreated = await User.create({ username, email, phone, password });
@@ -35,7 +35,7 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
     const isEmailExist = await User.findOne({ email: email });
     if (!isEmailExist) {
-      return res.status(400).json({ msg: "Invalid Credentials" });
+      return res.status(400).json({ message: "Invalid Credentials" });
     }
 
     const isPasswordValid = await isEmailExist.comparePassword(password);

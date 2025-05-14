@@ -33,9 +33,9 @@ const Register = () => {
         },
         body: JSON.stringify(userData),
       });
-      console.log(response);
+      const res_data = await response.json();
+      console.log("server response", res_data);
       if (response.ok) {
-        const res_data = await response.json();
         storeTokenInLocalStorage(res_data.token);
 
         setUserData({
@@ -46,7 +46,7 @@ const Register = () => {
         });
         navigate("/login");
       } else {
-        console.log("error");
+        alert(res_data.extraDetails ?? res_data?.message);
       }
     } catch (error) {
       console.log(error);
