@@ -5,6 +5,7 @@ import { authRoutes } from "./router/auth.routes.js";
 import { errorMiddleware } from "./middlewares/error-middleware.js";
 import { contactRoutes } from "./router/contact.routes.js";
 import { serviceRoutes } from "./router/service.routes.js";
+import { adminRoutes } from "./router/admin.routes.js";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(json());
 app.use("/api/auth", authRoutes);
 app.use("/api/form", contactRoutes);
 app.use("/api/data", serviceRoutes);
+app.use("/api/admin", adminRoutes);
 app.use(errorMiddleware);
 
 connectDb().then(() => {
