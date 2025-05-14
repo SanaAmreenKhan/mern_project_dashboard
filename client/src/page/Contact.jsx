@@ -25,12 +25,26 @@ const Contact = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Post to your API here
-    console.log(formData);
-    alert("Thank you for contacting us! We'll get back to you soon.");
-    setFormData({ username: "", email: "", message: "" });
+    try {
+      const response = await fetch("http://localhost:3000/api/form/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      console.log(response);
+      if (response.ok) {
+        setFormData({ username: "", email: "", message: "" });
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
