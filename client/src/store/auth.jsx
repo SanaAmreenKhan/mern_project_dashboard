@@ -56,7 +56,14 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ storeTokenInLocalStorage, LogoutUser, isLoggedIn, user, services }}
+      value={{
+        storeTokenInLocalStorage,
+        LogoutUser,
+        isLoggedIn,
+        user,
+        services,
+        token: `Bearer ${token}`,
+      }}
     >
       {children}
     </AuthContext.Provider>
