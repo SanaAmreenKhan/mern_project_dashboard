@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { useAuth } from "../store/auth";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const AdminUsers = () => {
   const { token } = useAuth();
@@ -23,6 +25,28 @@ const AdminUsers = () => {
     }
   };
 
+  const deleteUser = async (e, id) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/admin/users/delete/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.ok) {
+        const res_data = response.json();
+        console.log("deleted",res_data.message)
+        toast.success(res_data);
+        getAllUsers();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     getAllUsers();
   }, []);
@@ -40,7 +64,7 @@ const AdminUsers = () => {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
-                <th>Update</th>
+                <th>Edit</th>
                 <th>Delete</th>
               </tr>
             </thead>
@@ -52,8 +76,14 @@ const AdminUsers = () => {
                     <td>{username}</td>
                     <td>{email}</td>
                     <td>{phone}</td>
-                    <td>Update</td>
-                    <td>Delete</td>
+                    <td>
+                      <Link to={`/admin/users/${_id}/edit`}>Edit</Link>
+                    </td>
+                    <td>
+                      <button onClick={(e) => deleteUser(e, _id)}>
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 );
               })}
