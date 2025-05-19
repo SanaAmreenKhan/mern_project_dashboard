@@ -11,20 +11,17 @@ const AdminUpdate = () => {
   });
 
   const params = useParams();
-  const { token } = useAuth();
+  const { token, API } = useAuth();
 
   //   get single user data
   const getSingleUserData = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/admin/users/${params.id}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const response = await fetch(`${API}/api/admin/users/${params.id}`, {
+        method: "GET",
+        headers: {
+          Authorization: token,
+        },
+      });
       const data = await response.json();
       setData(data);
     } catch (error) {
@@ -46,17 +43,14 @@ const AdminUpdate = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/admin/users/edit/${params.id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch(`${API}/api/admin/users/edit/${params.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify(data),
+      });
 
       if (response.ok) {
         toast.success("Updated successfully");

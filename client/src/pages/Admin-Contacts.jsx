@@ -4,12 +4,12 @@ import { useAuth } from "../store/auth";
 import { toast } from "react-toastify";
 
 const AdminContacts = () => {
-  const { token } = useAuth();
+  const { token, API } = useAuth();
   const [allContacts, setAllContacts] = useState([]);
 
   const getAllContacts = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/admin/contacts", {
+      const response = await fetch(`${API}/api/admin/contacts`, {
         method: "GET",
         headers: {
           Authorization: token,
@@ -26,15 +26,12 @@ const AdminContacts = () => {
 
   const deleteContactById = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/admin/contacts/delete/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const response = await fetch(`${API}/api/admin/contacts/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: token,
+        },
+      });
       if (response.ok) {
         toast.success("Deleted Successfully");
         getAllContacts();

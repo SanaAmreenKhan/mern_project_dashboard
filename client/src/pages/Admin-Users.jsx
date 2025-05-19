@@ -5,12 +5,12 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
 const AdminUsers = () => {
-  const { token } = useAuth();
+  const { token, API } = useAuth();
   const [allUsers, setAllUsers] = useState([]);
 
   const getAllUsers = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/admin/users", {
+      const response = await fetch(`${API}/api/admin/users`, {
         method: "GET",
         headers: {
           Authorization: token,
@@ -28,18 +28,15 @@ const AdminUsers = () => {
   const deleteUser = async (e, id) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/admin/users/delete/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const response = await fetch(`${API}/api/admin/users/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: token,
+        },
+      });
       if (response.ok) {
         const res_data = response.json();
-        console.log("deleted",res_data.message)
+        console.log("deleted", res_data.message);
         toast.success(res_data);
         getAllUsers();
       }

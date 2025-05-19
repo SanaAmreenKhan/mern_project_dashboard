@@ -12,9 +12,9 @@ export const Register = () => {
   });
 
   const navigate = useNavigate();
-  const { storeTokenInLocalStorage } = useAuth();
+  const { storeTokenInLocalStorage, API } = useAuth();
 
-  const URL = `http://localhost:3000/api/auth/register`;
+  const URL = `${API}/api/auth/register`;
 
   // handling the input values
   const handleInput = (e) => {

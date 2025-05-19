@@ -10,9 +10,9 @@ export const Login = () => {
   });
 
   const navigate = useNavigate();
-  const { storeTokenInLocalStorage } = useAuth();
+  const { storeTokenInLocalStorage, API } = useAuth();
 
-  const URL = `http://localhost:3000/api/auth/login`;
+  const URL = `${API}/api/auth/login`;
 
   const handleInput = (e) => {
     let name = e.target.name;

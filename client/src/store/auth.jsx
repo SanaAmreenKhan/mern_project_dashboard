@@ -8,6 +8,8 @@ export const AuthProvider = ({ children }) => {
   const [services, setServices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const API = import.meta.env.VITE_API;
+
   const storeTokenInLocalStorage = (serverToken) => {
     return localStorage.setItem("token", serverToken);
   };
@@ -20,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   const authenticateJwt = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("http://localhost:3000/api/auth/user", {
+      const response = await fetch(`${API}/api/auth/user`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -41,7 +43,7 @@ export const AuthProvider = ({ children }) => {
 
   const getAllServices = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/data/services", {
+      const response = await fetch(`${API}/api/data/services`, {
         method: "GET",
       });
       if (response.ok) {
@@ -69,6 +71,7 @@ export const AuthProvider = ({ children }) => {
         services,
         token: `Bearer ${token}`,
         isLoading,
+        API,
       }}
     >
       {children}
