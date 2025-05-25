@@ -8,7 +8,7 @@ import { Register } from "./pages/Register";
 import { Login } from "./pages/Login";
 import { Logout } from "./pages/Logout";
 import { Error } from "./pages/Error";
-import { Footer } from "./components/Footer/Footer";
+import { Footer } from "./components/footer/Footer";
 import { Bounce, ToastContainer } from "react-toastify";
 import AdminLayout from "./components/layouts/Admin-layout";
 import AdminUsers from "./pages/Admin-Users";
