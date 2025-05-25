@@ -6,6 +6,9 @@ import { errorMiddleware } from "./middlewares/error-middleware.js";
 import { contactRoutes } from "./router/contact.routes.js";
 import { serviceRoutes } from "./router/service.routes.js";
 import { adminRoutes } from "./router/admin.routes.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
