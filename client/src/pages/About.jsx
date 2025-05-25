@@ -4,52 +4,46 @@ import { useAuth } from "../store/auth";
 
 export const About = () => {
   const { user } = useAuth();
+
   return (
     <>
       <main>
         <section className="section-hero">
           <div className="container grid grid-two-cols">
             <div className="hero-content">
-              {/* <p>We care to cure your Health</p> */}
               <p>
-                Welcome,
-                {user ? ` ${user.username} to our website` : ` to our website`}
+                Welcome{user ? `, ${user.username}` : ""} to our platform!
               </p>
-              <h1>Why Choose Us? </h1>
+              <h1>Why Choose Codify?</h1>
               <p>
-                Expertise: Our team consists of experienced IT professionals who
-                are passionate about staying up-to-date with the latest industry
-                trends.
+                <strong>Expertise:</strong> Our experienced IT professionals stay ahead of the curve with the latest industry innovations.
               </p>
               <p>
-                Customization: We understand that every business is unique.
-                Thats why we create solutions that are tailored to your specific
-                needs and goals.
+                <strong>Customization:</strong> We understand that every business is unique. That’s why we deliver tailored solutions aligned with your specific goals.
               </p>
               <p>
-                Customer-Centric Approach: We prioritize your satisfaction and
-                provide top-notch support to address your IT concerns.
+                <strong>Client-First Approach:</strong> Your satisfaction is our priority. We offer responsive support and reliable service.
               </p>
               <p>
-                Affordability: We offer competitive pricing without compromising
-                on the quality of our services.
+                <strong>Affordability:</strong> Get premium IT services at competitive prices—without compromising on quality.
               </p>
               <p>
-                Reliability: Count on us to be there when you need us. We are
-                committed to ensuring your IT environment is reliable and
-                available 24/7.
+                <strong>Reliability:</strong> We're available 24/7 to ensure your IT environment is secure, stable, and always up and running.
               </p>
               <div className="btn btn-group">
                 <NavLink to="/contact">
-                  <button className="btn"> Connect Now</button>
+                  <button className="btn">Connect Now</button>
                 </NavLink>
-                <button className="btn secondary-btn">learn more</button>
+                <NavLink to="/services">
+                  <button className="btn secondary-btn">Learn More</button>
+                </NavLink>
               </div>
             </div>
+
             <div className="hero-image">
               <img
                 src="/images/about.png"
-                alt="coding buddies "
+                alt="team collaboration"
                 width="400"
                 height="500"
               />
